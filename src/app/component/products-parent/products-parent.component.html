@@ -1,0 +1,168 @@
+<h1 class="text-center
+  font-weight-bold text-info
+">Computers</h1>
+
+<!-- FILEPATH: /E:/ITI/course/Angular/my-angular/src/app/component/products-parent/products-parent.component.html -->
+<!-- BEGIN: ed8c6549bwf9 -->
+<div class="mb-3 d-flex justify-content-center align-items-center gap-3">
+  <div class="form-group">
+    <label for="search" class="form-label text-info">Filter by name:</label>
+    <input type="text" class="form-control" [(ngModel)]="listFilterValue" placeholder="Search" />
+  </div>
+
+  <div class="form-group">
+    <label for="search" class="form-label text-info">Filter by price:</label>
+    <input type="number" class="form-control" [(ngModel)]="listFilterPrice" placeholder="Search" />
+  </div>
+</div>
+
+<!-- secion for button to hide all imgs  -->
+<div class="">
+  <!-- event binding -->
+
+  <button (click)="toggleImgs()" class="btn btn-primary text-center">Show Images</button>
+
+</div>
+
+<!-- child -->
+<products-list [listFilterValue]="listFilterValue" [listFilterPrice]="listFilterPrice" [toggleImgs]="showImgs"
+  (addPrdsEvent)="addFunProd($event)"></products-list>
+
+
+<!-- table to show  Cart -->
+
+@if (cart.length > 0) {
+<table class="table align-middle mb-4 bg-white">
+  <thead class="bg-light">
+    <tr>
+      <th>
+        <i class="fas fa-user"></i>
+        Name
+      </th>
+      <th>
+        <i class="fas fa-shopping-cart"></i>
+        numOnCart
+      </th>
+      <th>
+        <i class="fas fa-money-bill-wave"></i>
+        Old Price
+      </th>
+      <th>
+        <i class="fas fa-dollar-sign"></i>
+        Discount
+      </th>
+      <th>
+        <i class="fas fa-balance-scale"></i>
+        Price
+      </th>
+      <th>
+        <i class="fas fa-balance-scale"></i>
+        Total Price
+      </th>
+
+
+      <th>
+        <i class="fas fa-cog"></i>
+        Action
+      </th>
+
+    </tr>
+  </thead>
+  <tbody>
+
+    <!-- /*
+  Iproduct:
+  ID: 1,
+  Name: 'Laptop one',
+  description: 'this is a computer with 8GB RAM and 1TB HDD',
+  Quantity: 1,
+  Price: 100,
+  Img: 'https://i.pcmag.com/imagery/reviews/01DwPnq2ew5930qO5p4LXWH-1..v1677608790.jpg',
+  CategoryId: 1,
+  Material: 'laptops',
+  Discount: DiscountOffers['no-discount'],
+  numOnCart: 1,
+  */
+
+  cart: any[] = []; -->
+
+
+
+
+    @for (product of cart;track product.ID) {
+    <tr>
+      <td>
+        <div class="d-flex align-items-center">
+          <img [src]='product.Img' alt="" style="width: 45px; height: 45px" class="rounded-circle" />
+          <div class="ms-3">
+            <p class="fw-bold mb-1">{{product.Name}}</p>
+            <p class="text-muted mb-0">{{product.Material}}</p>
+          </div>
+        </div>
+      </td>
+      <td>
+        {{product.numOnCart}}
+      </td>
+      <td>
+        {{product.Price}}
+      </td>
+      <!-- <td>
+        {{product.Discount}} %
+      </td>
+
+      <td>
+        {{product.Price | calcDiscount: +product.Discount| currency:'USD'}}
+      </td>
+
+      <td>
+        {{product.Price * product.numOnCart | calcDiscount: +product.Discount| currency:'USD'}}
+      </td> -->
+
+      @if (product.Discount !== "No Discount") {
+      <td>
+        {{product.Discount}} %
+      </td>
+      <td>
+        {{product.Price | calcDiscount: +product.Discount| currency:'USD'}}
+      </td>
+      <td>
+        {{product.Price * product.numOnCart | calcDiscount: +product.Discount| currency:'USD'}}
+      </td>
+      } @else {
+      <td>
+        {{product.Discount}}
+      </td>
+      <td>
+        {{product.Price | currency:'USD'}}
+      </td>
+      <td>
+        {{product.Price * product.numOnCart | currency:'USD'}}
+      </td>
+      }
+
+      <td>
+        <button class="btn btn-danger" (click)="removeFromCart(product.ID)">
+          <i class="fas fa-trash"></i>
+          Remove
+        </button>
+
+      </td>
+
+
+    </tr>
+
+    }
+  </tbody>
+</table>
+<p>
+  <!-- Total Price: {{calcTotal() | currency:'USD'}} -->
+</p>
+} @else {
+<h3 class="text-center">
+  No products in cart
+  <i class="fas fa-shopping-cart"></i>
+</h3>
+}
+<!-- <p>
+  {{3000545440 | dashFourNumbers}}
+</p> -->

@@ -1,0 +1,181 @@
+<!-- // create div to button to send user obj in ts -->
+
+<div class="container">
+  <button (click)="sendUser()" class="btn btn-primary">Send User</button>
+</div>
+<!--
+
+      "phone": "01011752787",
+      "address": {
+        "street": "10th street",
+        "city": "Cairo",
+        "zipcode": "12345"
+      },
+      "website": "ahmedzena.com" -->
+
+<div class="container">
+  <div class=" text-center mt-5 ">
+
+    <h1>Register </h1>
+
+
+  </div>
+
+
+  <div class="row ">
+    <div class="col-lg-7 mx-auto">
+      <div class="card mt-2 mx-auto p-4 bg-light">
+        <div class="card-body bg-light">
+
+          <div class="container">
+            <form id="contact-form" (ngSubmit)="sendUser()" role="form" #userForm="ngForm">
+              <div class="controls">
+                <!-- name , role -->
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="form_name">Name *</label>
+                      <input id="form_name" type="text" name="name" class="form-control"
+                        placeholder="Please enter your name *" required="required" data-="name is required."
+                        [(ngModel)]="user.name" #userName="ngModel"
+                        [class]="{'is-invalid':userName.invalid && userName.touched}" minlength="3" maxlength="15">
+
+                      @if (userName.errors?.['required'] && userName.touched){
+                      <span class="text-danger">Name is required</span>
+                      } @else if (userName.errors?.['minlength'] && userName.touched){
+                      <span class="text-danger">Name must be at least 3 characters long.</span>
+                      }
+
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="form_need">specify your Role *</label>
+                      <select id="form_need" name="need" class="form-control" required="required" data-error="Please specify your need.
+                      " [(ngModel)]="user.role">
+
+                        <option value="user" selected>User</option>
+                        <option value="admin">Admin</option>
+
+                      </select>
+
+                    </div>
+                  </div>
+                </div>
+                <!-- Email , password -->
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="form_email">Email *</label>
+                      <input id="form_email" type="email" name="email" class="form-control"
+                        placeholder="Please enter your email *" required="required"
+                        data-error="Valid email is required." [(ngModel)]="user.email" #userEmail="ngModel"
+                        [class]="{'is-invalid':userEmail.invalid && userEmail.touched}"
+                        pattern="^[A-Za-z0-9._]{2,}@[A-Za-z0-9]+\.[A-Za-z]{2,}$">
+                      @if (userEmail.errors?.['required'] && userEmail.touched){
+                      <span class="text-danger">Email is required</span>
+                      } @else if (userEmail.errors?.['pattern'] && userEmail.touched){
+                      <span class="text-danger">Email addresses with 2+ character names, followed by a domain and a
+                        top-level domain.</span>
+                      }
+                    </div>
+
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="form_pass">Password *</label>
+                      <input id="form_pass" type="password" name="password" class="form-control"
+                        placeholder="Please enter your password *" required="required"
+                        data-error="Valid Password is required." [(ngModel)]="user.password" #userPassword="ngModel"
+                        [class]="{'is-invalid':userPassword.invalid && userPassword.touched}"
+                        pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$">
+
+                      @if (userPassword.errors?.['required'] && userPassword.touched){
+                      <span class="text-danger">Password is required</span>
+                      } @else if (userPassword.errors?.['pattern'] && userPassword.touched){
+                      <span class="text-danger">Password: 6-20 characters with a number, uppercase, and lowercase
+                        letter.</span>
+                      }
+                    </div>
+
+                  </div>
+                </div>
+                <!-- phone , address -->
+                <div class="row">
+                  <div class="col-md-6">
+                    <label for="form_phone">Phone *</label>
+                    <input id="form_phone" type="tel" name="phone" class="form-control"
+                      placeholder="Please enter your phone" data-error="Valid phone is required."
+                      [(ngModel)]="user.phone" pattern="(010|011|012|015)[0-9]{8}$" #userPhone="ngModel" required>
+                    @if (userPhone.errors?.['required'] && userPhone.touched){
+                    <span class="text-danger">Phone is required</span>
+                    } @else if (userPhone.errors?.['pattern'] && userPhone.touched){
+                    <span class="text-danger">
+                      Phone numbers: Begin with 010, 011, 012, or 015; 11 digits. </span>
+                    }
+                  </div>
+                  <div class="col-md-6">
+                    <label for="form_address">Address *</label>
+                    <input id="form_address" type="text" name="address" class="form-control"
+                      placeholder="Please enter your address " [(ngModel)]="user.address">
+                  </div>
+                </div>
+
+                <!-- button submit -->
+                <div class="row">
+
+                  <div class="col-md-12">
+
+                    <!-- <input type="submit" class="btn btn-success btn-send  pt-2 btn-block" value="Send Message"> -->
+
+                    <button type="submit" class="btn btn-success btn-send  pt-2 btn-block"
+                      [disabled]="userForm.invalid">Register</button>
+                  </div>
+
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+
+
+      </div>
+      <!-- /.8 -->
+
+    </div>
+    <!-- /.row-->
+
+  </div>
+</div>
+
+<!-- {{userName.value | json}} to show value of input -->
+<!-- {{userName.valid | json}} to show if input is valid or not -->
+<!-- {{userName.invalid | json}} to show if input is invalid or not -->
+<!-- {{userName.errors | json}} to show if input have errors or not -->
+<!-- {{userName.pristine | json}} to show if input is pristine or not -->
+<!-- {{userName.dirty | json}} to show if input is dirty or not -->
+<!-- {{userName.touched | json}} to show if input is touched or not -->
+<!-- {{userName.untouched | json}} to show if input is untouched or not -->
+
+<h2> Form Value </h2>
+<pre>{{userName.value | json}}</pre>
+<!-- <pre>{{userName.touched | json}}</pre>
+<pre>user name invalid{{userName.invalid | json}}</pre>
+<pre>user name errors{{userName.errors | json}}</pre>
+<pre>user name pristine{{userName.pristine | json}}</pre>
+<pre>user name dirty{{userName.dirty | json}}</pre>
+<pre>user name value {{userName.value | json}}</pre>
+<pre>user name touched{{userName.touched | json}}</pre>
+<pre>user name untouched{{userName.untouched | json}}</pre> -->
+
+<pre class="text-info font-weight-bold">
+    user name is valid : <span class="text-danger">{{userName.valid}}</span> ,
+    user name is invalid : <span class="text-danger">{{userName.invalid}}</span> ,
+    user name is pristine : <span class="text-danger">{{userName.pristine}}</span> ,
+    user name is dirty : <span class="text-danger">{{userName.dirty}}</span> ,
+    user name is touched : <span class="text-danger">{{userName.touched}}</span> ,
+    user name is untouched : <span class="text-danger">{{userName.untouched}}</span> ,
+    user name errors : <span class="text-danger">{{userName.errors | json}}</span> ,
+    user name value : <span class="text-danger">{{userName.value | json}}</span> ,
+
+</pre>

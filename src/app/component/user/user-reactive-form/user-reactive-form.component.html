@@ -1,0 +1,131 @@
+<div class="container">
+  <div class=" text-center mt-5 ">
+
+    <h1>Register </h1>
+
+
+  </div>
+
+
+  <div class="row ">
+    <div class="col-lg-7 mx-auto">
+      <div class="card mt-2 mx-auto p-4 bg-light">
+        <div class="card-body bg-light">
+
+          <div class="container">
+            <form id="contact-form" (ngSubmit)="sendUser()" role="form" [formGroup]="formGroup">
+              <div class="controls">
+                <!-- name , role -->
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="form_name">Name *</label>
+                      <input id="form_name" type="text" name="name" class="form-control"
+                        placeholder="Please enter your name *" required="required" data-="name is required."
+                        formControlName="name"
+                        [ngClass]="{'is-invalid': (userName?.touched || userName?.dirty)&& userName?.invalid}">
+                      @if (userName?.errors?.['required'] && userName?.touched){
+                      <span class="text-danger">Name is required</span>
+                      } @else if (userName?.errors?.['minlength'] && userName?.touched){
+                      <span class="text-danger">Name must be at least 3 characters long.</span>
+                      }
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="form_need">specify your Role *</label>
+                      <select id="form_need" name="need" class="form-control" required="required" data-error="Please specify your need.
+                      " formControlName="role">
+                        @for(role of roles ; track $index){
+                        <option value=role.value>{{role.name}}</option>
+                        <!-- <option value="admin">Admin</option> -->
+                        }
+                      </select>
+
+                    </div>
+                  </div>
+                </div>
+                <!-- Email , password -->
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="form_email">Email *</label>
+                      <input id="form_email" type="email" name="email" class="form-control"
+                        placeholder="Please enter your email *" required="required"
+                        data-error="Valid email is required." pattern="^[A-Za-z0-9._]{2,}@[A-Za-z0-9]+\.[A-Za-z]{2,}$"
+                        formControlName="email"
+                        [ngClass]="{'is-invalid': (userEmail?.touched || userEmail?.dirty)&& userEmail?.invalid}">
+                      @if (userEmail?.errors?.['required'] && userEmail?.touched){
+                      <span class="text-danger">Email is required</span>
+                      } @else if (userEmail?.errors?.['pattern'] && userEmail?.touched){
+                      <span class="text-danger">Email addresses with 2+ character names, followed by a domain and a
+                        top-level domain.</span>
+                      }
+                    </div>
+
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="form_pass">Password *</label>
+                      <input id="form_pass" type="password" name="password" class="form-control"
+                        placeholder="Please enter your password *" required="required" formControlName="password"
+                        data-error="Valid Password is required." pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$"
+                        [ngClass]="{'is-invalid': (userPassword?.touched || userPassword?.dirty)&& userPassword?.invalid}">
+
+                      @if (userPassword?.errors?.['required'] && userPassword?.touched){
+                      <span class="text-danger">Password is required</span>
+                      } @else if (userPassword?.errors?.['pattern'] && userPassword?.touched){
+                      <span class="text-danger">Password: 6-20 characters with a number, uppercase, and lowercase
+                        letter.</span>
+                      }
+                    </div>
+
+                  </div>
+                </div>
+                <!-- phone , address -->
+                <div class="row">
+                  <div class="col-md-6">
+                    <label for="form_phone">Phone *</label>
+                    <input id="form_phone" type="tel" name="phone" class="form-control"
+                      placeholder="Please enter your phone" data-error="Valid phone is required."
+                      formControlName="phone" pattern="(010|011|012|015)[0-9]{8}$" required
+                      [ngClass]="{'is-invalid': (userPhone?.touched || userPhone?.dirty)&& userPhone?.invalid}">
+                    @if (userPhone?.errors?.['required'] && userPhone?.touched){
+                    <span class="text-danger">Phone is required</span>
+                    } @else if (userPhone?.errors?.['pattern'] && userPhone?.touched){
+                    <span class="text-danger">
+                      Phone numbers: Begin with 010, 011, 012, or 015; 11 digits. </span>
+                    }
+                  </div>
+                  <div class="col-md-6">
+                    <label for="form_address">Address *</label>
+                    <input id="form_address" type="text" name="address" class="form-control" formControlName="address"
+                      placeholder="Please enter your address "
+                      [ngClass]="{'is-invalid': (userAddress?.touched || userAddress?.dirty)&& userAddress?.invalid}">
+                  </div>
+                </div>
+
+                <!-- button submit -->
+                <div class="row mt-2">
+                  <div class="col-md-12">
+                    <button type="submit" class="btn btn-success btn-send  pt-2 btn-block">Register</button>
+                  </div>
+
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+
+
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<p>
+  {{formGroup.value |json }}
+  {{formGroup.get("name") }}
+</p>

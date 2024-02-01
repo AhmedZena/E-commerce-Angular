@@ -1,0 +1,11 @@
+.classActive {
+  background-color: #f44336;
+  color: white;
+  border-radius: 5px;
+  padding: 5px;
+  margin: 5px;
+
+  box-shadow: 0 0 5px #f44336;
+  transition: all 0.5s ease-in-out;
+  cursor: pointer;
+}

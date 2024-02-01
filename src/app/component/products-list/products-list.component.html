@@ -1,0 +1,136 @@
+<!-- select Category -->
+<div class="form-group">
+  <label for="exampleFormControlSelect1">Select Category</label>
+  <select class="form-control" id="exampleFormControlSelect1" [(ngModel)]="selectedCategory"
+    (change)="onProductChange($event)">
+
+    <option value="All" selected>All Categories</option>
+    @for (category of categories ; track $index){
+    <option value="{{category.id}}">{{category.name}}</option>
+    }
+  </select>
+</div>
+
+<!-- filter  -->
+
+@if (isPurshased){
+<div class="alert alert-success" role="alert">
+  <h4 class="alert-heading">Well done!</h4>
+  <p>You successfully purshased the product</p>
+  <hr>
+  <p class="mb-0">Thank you for shopping with us</p>
+</div>
+}
+
+<div class="row">
+
+  @for( item of productsFiltered; track item.id){
+  <div class="col-4 p-2 my-2" appImgStyle>
+    <div class="card " style=" height: 45rem"
+      [ngClass]="{ 'bg-warning': item.quantity == 1 , 'text-success': item.quantity > 0 }">
+
+      @if(showImgs){
+      <img [src]="item.img" class="card-img-top h-50" alt="..." radius1="100px" />
+      }
+      <div class="card-body">
+        <h3 class="card-title text-center">{{item.name}}</h3>
+
+        <!-- category: <span class="card-text">
+          {{getCategoryName(item.categoryId)}}
+        </span> -->
+        <h4 class="card-text text-center">
+          category Id: {{item.categoryId}}
+          <!-- {{getCategoryName(item.categoryId)}} -->
+        </h4>
+
+        <p class="card-text">
+          {{item.description}}
+        </p>
+        <!-- <p class="card-text">
+
+        </p> -->
+        @if(item.quantity > 0 ){
+        <p class="card-text">
+          <!-- price: {{item.price | currency:'EUR'}} -->
+          price:
+          <span style="text-decoration: line-through;" class="text-danger">
+            {{item.price | currency:'USD'}}
+          </span>
+          <!-- {{item.price | calcdiscount: +item.discount| currency:'USD'}} -->
+          @if (item.discount !== "No Discount"){
+          <span class="text-success">
+            {{item.price | calcDiscount: +item.discount| currency:'USD'}}
+          </span>
+          } @else{
+          <span class="text-success">
+            {{item.price | currency:'USD'}}
+          </span>
+          }
+
+        </p>
+        <p class="card-text">
+          quantity: {{item.quantity}} items in stock
+          <!-- Make switch case on product quantity (last one item ,last two item,out of stock ,in stock). -->
+          <br>
+          <!-- <span [ngSwitch]="item.quantity">
+
+            <span *ngSwitchCase="1" class="text-danger">Last one item</span>
+            <span *ngSwitchCase="2" class="text-danger">Last two items</span>
+            <span *ngSwitchDefault class="text-secondary">In stock</span>
+          </span> -->
+          @switch (item.quantity) {
+          @case (1){
+          <span class="text-danger">Last one item</span>
+          }
+
+          @case (2){
+          <span class="text-danger">Last two items</span>
+          }
+
+          @default{
+          <span class="text-secondary">In stock</span>
+          }
+          }
+
+        </p>
+        @if (item.discount !== "No Discount"){
+        <p class="card-text text-danger">
+          discount: {{item.discount}}
+        </p>
+        }
+        } @else{
+        <p class="card-text text-danger">
+          Out of stock
+        </p>
+        }
+
+
+        <!-- <button class="btn btn-primary p-4 text-center " [disabled]="item.quantity == 0"
+          (click)="hideBuyProduct(item.id)" (click)="buyProduct(item)"> -->
+        <div class="d-grid gap-2">
+          <button class="btn btn-primary p-1 text-center " [disabled]="item.quantity == 0" (click)="buyProduct(item)">
+            <i class="fas fa-cart-plus"></i>
+            Add To Cart</button>
+
+          <!-- button to go to another page and show more details  -->
+          <button class="btn btn-primary p-1 text-center " (click)="goToProductDetails(item.id)">
+            Show more details</button>
+          <!-- <a class="btn btn-primary p-1 text-center " [routerLink]="['/product',item.id]">
+            <i class="fas fa-cart-plus"></i>
+            Show more details</a> -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  }
+  @empty{
+  <p class="text-primary">No products found</p>
+  }
+
+  <!-- date -->
+  <!-- <p>
+    Today is {{date1 | date:'short'}}
+  </p> -->
+
+</div>
