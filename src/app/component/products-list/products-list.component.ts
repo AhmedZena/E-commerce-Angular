@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { ImgStyleDirective } from '../../Directives/img-style.directive';
 import { RouterModule, Router } from '@angular/router';
 import { ICategory } from '../../Model/ICategory';
+// import { CategoriesApiService } from '../../services/categories-api.service';
 // ng class
 // import { NgClass } from '@angular/common';
 
@@ -23,6 +24,7 @@ import { calcDiscount } from '../../Pipes/calc-discount-pipe.pipe';
 // import { Router } from '@angular/router';
 
 import { ProductsWithApiService } from '../../services/products-api.service';
+import { CategoriesApiService } from '../../services/categories-api.service';
 
 @Component({
   selector: 'products-list',
@@ -45,7 +47,8 @@ export class ProductsListComponent {
   // constructor
   constructor(
     public router: Router,
-    private prdserviceApi: ProductsWithApiService
+    private prdserviceApi: ProductsWithApiService,
+    private catserviceApi: CategoriesApiService
   ) {}
   productsFiltered: IProduct[] = [];
 
@@ -56,12 +59,12 @@ export class ProductsListComponent {
       this.productsFiltered = data;
     });
 
-    this.prdserviceApi.getAllCats().subscribe((data) => {
+    this.catserviceApi.getAllCats().subscribe((data) => {
       this.categories = data;
     });
   }
 
-  // enums
+  // // // // enums
   public discount1 = DiscountOffers['no-discount'];
   public discount2 = DiscountOffers['15%'];
 
@@ -95,7 +98,7 @@ export class ProductsListComponent {
     this.isPurshased = true;
   }
 
-  hideBuyProduct(id: number) {
+  hideBuyProduct(id: string) {
     // decrease the quantity of the product
 
     const product = this.productsFiltered.find((product) => product.id === id);
@@ -146,7 +149,7 @@ export class ProductsListComponent {
     this.addPrdsEvent.emit(product);
   }
 
-  goToProductDetails(prodId: number) {
+  goToProductDetails(prodId: string) {
     // console.log(prodId);
     this.router.navigate(['/product', prodId]);
     // console.log(this.prdservice.getLastId());

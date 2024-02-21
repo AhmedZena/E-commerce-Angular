@@ -1,5 +1,5 @@
-<div class="container">
-  <div class=" text-center mt-5 ">
+<div class="container mt-3 mb-3">
+  <div class=" text-center">
 
     <h1>Register </h1>
 
@@ -11,12 +11,13 @@
     <div class="col-lg-7 mx-auto">
       <div class="card mt-2 mx-auto p-4 bg-light">
         <div class="card-body bg-light">
-
           <div class="container">
-            <form id="contact-form" (ngSubmit)="sendUser()" role="form" [formGroup]="formGroup">
+            <form id="contact-form" (ngSubmit)="sendUser()" role="form" [formGroup]="regFormGroup">
               <div class="controls">
+
                 <!-- name , role -->
                 <div class="row">
+                  <!-- name  -->
                   <div class="col-md-6">
                     <div class="form-group">
                       <label for="form_name">Name *</label>
@@ -31,22 +32,26 @@
                       }
                     </div>
                   </div>
+                  <!-- role -->
                   <div class="col-md-6">
                     <div class="form-group">
                       <label for="form_need">specify your Role *</label>
                       <select id="form_need" name="need" class="form-control" required="required" data-error="Please specify your need.
                       " formControlName="role">
-                        @for(role of roles ; track $index){
+                        <!-- @for(role of roles ; track $index){
                         <option value=role.value>{{role.name}}</option>
-                        <!-- <option value="admin">Admin</option> -->
-                        }
+                        } -->
+                        <option value="admin">Admin</option>
+                        <option value="user" selected>User</option>
                       </select>
 
                     </div>
                   </div>
                 </div>
-                <!-- Email , password -->
+
+                <!--  Email , Password -->
                 <div class="row">
+                  <!-- Email  -->
                   <div class="col-md-6">
                     <div class="form-group">
                       <label for="form_email">Email *</label>
@@ -62,8 +67,8 @@
                         top-level domain.</span>
                       }
                     </div>
-
                   </div>
+                  <!-- password -->
                   <div class="col-md-6">
                     <div class="form-group">
                       <label for="form_pass">Password *</label>
@@ -82,35 +87,87 @@
 
                   </div>
                 </div>
+
                 <!-- phone , address -->
                 <div class="row">
-                  <div class="col-md-6">
-                    <label for="form_phone">Phone *</label>
-                    <input id="form_phone" type="tel" name="phone" class="form-control"
-                      placeholder="Please enter your phone" data-error="Valid phone is required."
-                      formControlName="phone" pattern="(010|011|012|015)[0-9]{8}$" required
-                      [ngClass]="{'is-invalid': (userPhone?.touched || userPhone?.dirty)&& userPhone?.invalid}">
-                    @if (userPhone?.errors?.['required'] && userPhone?.touched){
-                    <span class="text-danger">Phone is required</span>
-                    } @else if (userPhone?.errors?.['pattern'] && userPhone?.touched){
-                    <span class="text-danger">
-                      Phone numbers: Begin with 010, 011, 012, or 015; 11 digits. </span>
+                  <!-- phone  -->
+                  <div formArrayName="phone">
+                    @if (userPhone.controls.length > 0){
+                    <p class="mt-4">Phones</p>
+                    }
+                    @for (address of userPhone.controls; track $index) {
+                    <div class="row form-group col-12" [formGroupName]="$index">
+                      <div class="col-md-4">
+                        <label for="city">Code *</label>
+                        <input type="number" formControlName="code" class="form-control">
+                      </div>
+                      <div class="col-md-4">
+                        <label for="street">Number *</label>
+                        <input type="number" formControlName="number" class="form-control">
+                      </div>
+
+                      <div class="col-md-1 pt-3">
+                        <button class="btn btn-danger mt-2  " (click)="removePhone($index)">Remove</button>
+                      </div>
+                    </div>
+
                     }
                   </div>
-                  <div class="col-md-6">
-                    <label for="form_address">Address *</label>
-                    <input id="form_address" type="text" name="address" class="form-control" formControlName="address"
-                      placeholder="Please enter your address "
-                      [ngClass]="{'is-invalid': (userAddress?.touched || userAddress?.dirty)&& userAddress?.invalid}">
+
+                  <div class="row mt-4 text-center">
+                    <div class="col-12">
+                      @if (userPhone.controls.length == 0){
+                      <p class="text-danger mt-2"> At least one Phone is required</p>
+                      }
+                      <button class="btn btn-primary" (click)="addPhone()">Add Phone</button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Address: -->
+
+                <div formArrayName="addresses">
+                  @if (userAddresses.controls.length > 0){
+                  <p class="mt-4">Addresses</p>
+                  }
+                  @for (address of userAddresses.controls; track $index) {
+                  <div class="row form-group col-12" [formGroupName]="$index">
+                    <div class="col-md-4">
+                      <label for="city">City *</label>
+                      <input type="text" formControlName="city" class="form-control">
+                    </div>
+                    <div class="col-md-4">
+                      <label for="street">Street *</label>
+                      <input type="text" formControlName="street" class="form-control">
+                    </div>
+                    <div class="col-md-3">
+                      <label for="zipcode">Zipcode *</label>
+                      <input type="text" formControlName="zipcode" class="form-control">
+                    </div>
+
+                    <div class="col-md-1 pt-3">
+                      <button class="btn btn-danger mt-2  " (click)="removeAddress($index)">Remove</button>
+                    </div>
+                  </div>
+
+                  }
+                </div>
+
+                <div class="row mt-4 text-center">
+                  <div class="col-12">
+                    @if (userAddresses.controls.length == 0){
+                    <p class="text-danger mt-2"> At least one address is required</p>
+                    }
+                    <button class="btn btn-primary" (click)="addAddress()">Add Address</button>
                   </div>
                 </div>
 
                 <!-- button submit -->
                 <div class="row mt-2">
                   <div class="col-md-12">
-                    <button type="submit" class="btn btn-success btn-send  pt-2 btn-block">Register</button>
+                    <button [disabled]="!regFormGroup.valid" type="submit"
+                      class="btn btn-success btn-send  pt-2 btn-block">Register</button>
                   </div>
-
                 </div>
               </div>
             </form>
@@ -126,6 +183,6 @@
 </div>
 
 <p>
-  {{formGroup.value |json }}
-  {{formGroup.get("name") }}
+  {{regFormGroup.value | json }}
+  {{regFormGroup.get("name") }}
 </p>

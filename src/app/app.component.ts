@@ -14,7 +14,6 @@ import { ProductsParentComponent } from './component/products-parent/products-pa
     SideMenuComponent,
     FooterComponent,
     ProductsParentComponent,
-    RouterOutlet,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',

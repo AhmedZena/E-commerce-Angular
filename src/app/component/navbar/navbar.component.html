@@ -30,6 +30,17 @@
         <a class="nav-link" routerLinkActive="classActive" routerLink='/contactus'>
           contact us</a>
       </li>
+
+      <li>
+        <a class="nav-link" routerLinkActive="classActive" routerLink='/admin/insertproduct'>
+          add product
+        </a>
+      </li>
+      <li>
+        <a class="nav-link" routerLinkActive="classActive" routerLink='/admin/products'>
+          admin dashboard
+        </a>
+      </li>
       <!-- <li class="nav-item">
         <a class="nav-link" routerLinkActive="classActive" routerLink='/userTemplateForm'>
           register
@@ -40,6 +51,20 @@
           register
         </a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLinkActive="classActive" routerLink='/login' [hidden]="isUserLoggedIn">
+          login
+        </a>
+      </li>
+
+
+      <li class="nav-item">
+        <a class="nav-link" routerLinkActive="classActive" (click)="open('focusFirst')" routerLink='/login'
+          [hidden]="!isUserLoggedIn">
+          logout
+        </a>
+      </li>
+
     </ul>
   </div>
 </nav>

@@ -14,12 +14,12 @@ import { environment } from '../../environments/environment.development';
 // })
 export class ProductsService {
   private products: IProduct[] = [];
-  private productsIds: number[] = []; // holding ids of products
-  private lastClickedProductId: number = 0;
+  private productsIds: string[] = []; // holding ids of products
+  private lastClickedProductId: string = '1';
   constructor() {
     this.products = [
       {
-        id: 1,
+        id: '1',
         name: 'Laptop one',
         description: 'this is a computer with 8GB RAM and 1TB HDD',
         quantity: 1,
@@ -30,7 +30,7 @@ export class ProductsService {
         discount: DiscountOffers['no-discount'],
       },
       {
-        id: 7,
+        id: '7',
         name: 'computer one',
         description: 'this is a computer with 16GB RAM and 2TB HDD and 1TB SSD',
         quantity: 0,
@@ -41,7 +41,7 @@ export class ProductsService {
         discount: DiscountOffers['15%'],
       },
       {
-        id: 3,
+        id: '3',
         name: 'computer two',
         description: 'this is a computer with 32GB RAM and 4TB HDD and 2TB SSD',
         quantity: 4,
@@ -52,7 +52,7 @@ export class ProductsService {
         discount: DiscountOffers['10%'],
       },
       {
-        id: 4,
+        id: '4',
         name: 'laptop two',
         description: 'this is a computer with 64GB RAM and 8TB HDD and 4TB SSD',
         quantity: 20,
@@ -63,7 +63,7 @@ export class ProductsService {
         discount: DiscountOffers['15%'],
       },
       {
-        id: 5,
+        id: '5',
         name: 'computer three',
         description:
           'this is a computer with 128GB RAM and 16TB HDD and 8TB SSD',
@@ -91,7 +91,7 @@ export class ProductsService {
     );
   }
 
-  getProductById(id: number): IProduct {
+  getProductById(id: string): IProduct {
     // return this.products.find((product: IProduct) => product.id === id);
     // return this.products.find((product: IProduct) => product.id === id);
     let product: IProduct = this.products.find(
@@ -105,24 +105,24 @@ export class ProductsService {
   }
 
   // set and get lastId
-  getLastId(): number {
+  getLastId(): string {
     return this.lastClickedProductId;
   }
 
-  setLastId(id: number): void {
+  setLastId(id: string): void {
     this.lastClickedProductId = id;
   }
 
   // get ids of products
-  getIds(): number[] {
+  getIds(): string[] {
     // console.log(this.products.map((product: IProduct) => product.id));
     // return this.products.map((product: IProduct) => product.id);
     return this.productsIds;
   }
 
   // get next id
-  getNextId(prodId: number): number | undefined {
-    // return this.getIds().find((id: number) => id > prodId);
+  getNextId(prodId: string): string | undefined {
+    // return this.getIds().find((id: string) => id > prodId);
     // index of prodId
     // let index = this.getIds().indexOf(prodId);
     // return this.getIds()[index + 1];
@@ -137,10 +137,10 @@ export class ProductsService {
   }
 
   // get previous id
-  getPrevId(prodId: number): number | undefined {
+  getPrevId(prodId: string): string | undefined {
     // return this.getIds()
     //   .reverse()
-    //   .find((id: number) => id < prodId);
+    //   .find((id: string) => id < prodId);
     // console.log(this.getIds().indexOf(prodId));
     // return this.getIds()[this.getIds().indexOf(prodId) - 1];
     const index = this.productsIds.indexOf(prodId);

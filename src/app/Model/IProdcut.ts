@@ -1,6 +1,6 @@
 import { DiscountOffers } from './DiscountOffers';
 export interface IProduct {
-  id: number;
+  id: string;
   description: string;
   name: string;
   quantity: number;

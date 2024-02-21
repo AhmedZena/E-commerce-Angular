@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { UsersApiService } from '../../../../services/users-api.service';
-import { IUser } from '../../../../Model/iuser';
+import { IUser } from '../../../../Model/IUser';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { JsonPipe } from '@angular/common';
@@ -21,7 +21,7 @@ export class UserTemplateFormComponent {
   user: IUser = {
     role: 'user', // default role
   } as IUser; //
-  // Assuming user is an object with a role property
+  // // Assuming user is an object with a role property
   // user: IUser = {
   //   name: 'Ahmed gamal zena',
   //   email: 'ahmedzena@gmail.com',

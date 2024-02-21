@@ -1,0 +1,158 @@
+<h1 class="text-center">Add Product</h1>
+<div class="row">
+  <div class="col-lg-7 mx-auto">
+    <div class="card mt-2 mx-auto p-4 bg-light">
+      <div class="card-body bg-light">
+
+        <div class="container">
+          <form id="contact-form" (ngSubmit)="addProduct()" role="form" #productForm="ngForm">
+            <div class="controls">
+              <!-- name , role -->
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="form_name">Name *</label>
+                    <input id="form_name" type="text" name="name" class="form-control"
+                      placeholder="Please enter your name *" required="required" data-="name is required."
+                      [(ngModel)]="product.name" #productName="ngModel"
+                      [class]="{'is-invalid':productName.invalid && productName.touched}" minlength="3" maxlength="15">
+
+                    @if (productName.errors?.['required'] && productName.touched){
+                    <span class="text-danger">Name is required</span>
+                    } @else if (productName.errors?.['minlength'] && productName.touched){
+                    <span class="text-danger">Name must be at least 3 characters long.</span>
+                    }
+
+                  </div>
+                  <div class="form-group">
+                    <label for="description">description *</label>
+                    <input id="description" type="text" name="description" class="form-control"
+                      placeholder="Please enter your description *" required="required" data-="description is required."
+                      [(ngModel)]="product.description" #description="ngModel"
+                      [class]="{'is-invalid':description.invalid && description.touched}" minlength="3" maxlength="15">
+
+                    @if (description.errors?.['required'] && description.touched){
+                    <span class="text-danger">description is required</span>
+                    } @else if (description.errors?.['minlength'] && description.touched){
+                    <span class="text-danger">description must be at least 3 characters long.</span>
+                    }
+
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="form_need">specify Category</label>
+                    <select id="form_need" name="need" class="form-control" required="required" data-error="Please specify your need.
+                      " [(ngModel)]="product.categoryId">
+
+                      <!-- default -->
+                      @for (category of categories ; track $index){
+                      <option value="{{category.id}}">{{category.name}}</option>
+                      }
+                    </select>
+
+                  </div>
+                  <div class="form-group">
+                    <label for="form_need">specify materila</label>
+                    <select id="form_need" name="need" class="form-control" required="required" data-error="Please specify your need.
+                      " [(ngModel)]="product.material">
+
+                      @for (materila of materials ; track $index){
+                      <option value="{{materila.name}}">{{materila.name}}</option>
+                      }
+                    </select>
+
+                  </div>
+
+                </div>
+              </div>
+
+
+              <div class="row">
+                <div class="col-md-6">
+
+                  <label for="form_price">Price *</label>
+                  <input id="form_price" type="number" name="price" class="form-control"
+                    placeholder="Please enter your price" data-error="Valid price is required."
+                    [(ngModel)]="product.price" pattern="[0-9]{3,6}$" #productprice="ngModel" required>
+                  @if (productprice.errors?.['required'] && productprice.touched){
+                  <span class="text-danger">price is required</span>
+                  } @else if (productprice.errors?.['pattern'] && productprice.touched){
+                  <span class="text-danger">
+                    price:From 100 to 100000</span>
+                  }
+
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="form_pass">quantity</label>
+                    <input id="form_pass" type="number" name="quantity" class="form-control"
+                      placeholder="Please enter your quantity *" required="required"
+                      data-error="Valid quantity is required." [(ngModel)]="product.quantity" #quantity="ngModel"
+                      [class]="{'is-invalid':quantity.invalid && quantity.touched}" pattern="^[1-9][0-9]?$">
+
+                    @if (quantity.errors?.['required'] && quantity.touched){
+                    <span class="text-danger">quantity is required</span>
+                    } @else if (quantity.errors?.['pattern'] && quantity.touched){
+                    <span class="text-danger">quantity:From 1 to 99</span>
+                    }
+
+                  </div>
+                </div>
+              </div>
+
+              <!-- Email , password -->
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="form_need">specify Discount</label>
+                    <select id="form_need" name="need" class="form-control" required="required" data-error="Please specify your need.
+                                                            " [(ngModel)]="product.discount">
+
+                      <option value="No Discount" selected>No Discount</option>
+                      <option value="10">10%</option>
+                      <option value="15">15%</option>
+
+                    </select>
+
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label for="form_img_src">img src *</label>
+                  <input id="form_img_src" type="text" name="img" class="form-control"
+                    placeholder="Please enter your img src " [(ngModel)]="product.img" required="required"
+                    data-error="Valid img src is required." #img="ngModel" pattern="https?://.+" required>
+                  @if (img.errors?.['required'] && img.touched){
+                  <span class="text-danger">img src is required</span>
+                  } @else if (img.errors?.['pattern'] && img.touched){
+                  <span class="text-danger">img src:Valid img src is required.</span>
+                  }
+
+                </div>
+              </div>
+
+
+              <!-- button submit -->
+              <div class="row">
+
+                <div class="col-md-12 text-center mt-3">
+                  <button type="submit" class="btn btn-success btn-send  pt-2 btn-block text-center"
+                    [disabled]="productForm.invalid">Add Product</button>
+                </div>
+
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+
+    </div>
+    <!-- /.8 -->
+
+  </div>
+  <!-- /.row-->
+
+</div>
+
+<!-- <button (click)="addProduct()">Add Product</button> -->

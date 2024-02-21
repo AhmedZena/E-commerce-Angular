@@ -1,0 +1,29 @@
+<div class="container">
+  <h1>Products Dashboard</h1>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Loop through products and display each product -->
+      <!-- <tr *ngFor="let product of products"> -->
+
+      @for (product of products ; track $index){
+      <tr>
+        <td>{{ product.id }}</td>
+        <td>{{ product.name }}</td>
+        <td>{{ product.price }}</td>
+        <td>
+          <button class="btn btn-danger" (click)="deleteProduct(product.id)">Delete</button>
+          <button class="btn btn-primary" (click)="updateProduct(product.id)">Update</button>
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>

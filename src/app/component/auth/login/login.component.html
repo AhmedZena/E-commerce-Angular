@@ -1,1 +1,43 @@
-<p>login works!</p>
+<form [formGroup]="loginFormGroup" (ngSubmit)="onSubmit()" class="container mt-3 mb-3">
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input type="email" class="form-control" id="email" formControlName="email" placeholder="Enter email">
+
+    @if(loginFormGroup.get('email')?.invalid && (loginFormGroup.get('email')?.dirty ||
+    loginFormGroup.get('email')?.touched)){
+    <div class="text-danger">
+
+      @if (loginFormGroup.get('email')?.errors?.['required'] && loginFormGroup.get('email')?.touched){
+      <span class="text-danger">Email is required</span>
+      } @else if (loginFormGroup.get('email')?.errors?.['pattern'] && loginFormGroup.get('email')?.touched){
+      <span class="text-danger">Email addresses with 2+ character names, followed by a domain and a
+        top-level domain.</span>
+      }
+    </div>
+    }
+  </div>
+
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input type="password" class="form-control" id="password" formControlName="password" placeholder="Enter password">
+    @if(loginFormGroup.get('password')?.invalid && (loginFormGroup.get('password')?.dirty ||
+    loginFormGroup.get('password')?.touched)){
+    <div class="text-danger">
+
+      @if(loginFormGroup.get('password')?.errors?.['required'] && loginFormGroup.get('password')?.touched){
+      <span class="text-danger">Password is required</span>
+      } @else if (loginFormGroup.get('password')?.errors?.['minlength'] && loginFormGroup.get('password')?.touched){
+      <span class="text-danger">Password must be at least 6 characters long</span>
+      }
+
+    </div>
+    }
+  </div>
+
+  <!-- <button type="submit" class="btn btn-primary">Login</button> -->
+  <button type="submit" class="btn btn-primary" [disabled]="loginFormGroup.invalid">Login</button>
+</form>
+
+<p>
+  {{loginFormGroup.value | json}}
+</p>

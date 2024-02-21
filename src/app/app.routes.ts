@@ -9,6 +9,10 @@ import { ProductDetailsComponent } from './component/product-details/product-det
 import { ContactUsComponent } from './component/contact-us/contact-us.component';
 import { UserTemplateFormComponent } from './component/user/user-template-form/user-template-form/user-template-form.component';
 import { UserReactiveFormComponent } from './component/user/user-reactive-form/user-reactive-form.component';
+import { AddProductComponent } from './component/add-product/add-product.component';
+import { ProductsDashboardComponent } from './component/admin/products-dashboard/products-dashboard.component';
+import { LoginComponent } from './component/auth/login/login.component';
+import { logedInGuard } from './Gaurds/loged-in.guard';
 export const routes: Routes = [
   {
     path: '',
@@ -24,6 +28,7 @@ export const routes: Routes = [
         path: 'product/:prdId',
         component: ProductDetailsComponent,
         title: 'Product Details',
+        canActivate: [logedInGuard],
       },
       { path: 'home', component: MainComponent, title: 'Home' },
       { path: 'contactus', component: ContactUsComponent, title: 'Contact Us' },
@@ -37,6 +42,22 @@ export const routes: Routes = [
         component: UserReactiveFormComponent,
         title: 'User Reactive Form',
       },
+      {
+        path: 'admin/insertproduct',
+        component: AddProductComponent,
+        title: 'Add Product',
+      },
+      {
+        path: 'admin/products',
+        component: ProductsDashboardComponent,
+        title: 'Products Dashboard',
+      },
+      {
+        path: 'login',
+        component: LoginComponent,
+        title: 'Login',
+      },
+
       { path: '', redirectTo: 'home', pathMatch: 'full' },
     ],
   },

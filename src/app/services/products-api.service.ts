@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IProduct } from '../Model/IProdcut';
 import { environment } from '../../environments/environment.development';
-import { ICategory } from '../Model/ICategory';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -25,12 +24,14 @@ export class ProductsWithApiService {
   }
 
   // get all products ids only
-  getAllPrdsIds(): Observable<number[]> {
+  getAllPrdsIds(): Observable<string[]> {
     return this.httpclient
       .get<IProduct[]>(`${environment.baseUrl}products`)
       .pipe(
         map((products: IProduct[]) => {
-          return products.map((product: IProduct) => product.id);
+          return products.map((product: IProduct) =>
+            product.id ? product.id : '0'
+          );
         })
       );
   }
@@ -59,7 +60,7 @@ export class ProductsWithApiService {
   }
 
   // delete product by id
-  deletePrd(prdID: number): Observable<IProduct> {
+  deletePrd(prdID: string): Observable<IProduct> {
     return this.httpclient.delete<IProduct>(
       `${environment.baseUrl}products/${prdID}`
     );
@@ -70,18 +71,6 @@ export class ProductsWithApiService {
     return this.httpclient.put<IProduct>(
       `${environment.baseUrl}products/${prd.id}`,
       prd
-    );
-  }
-
-  // get all categories
-  getAllCats(): Observable<ICategory[]> {
-    return this.httpclient.get<ICategory[]>(`${environment.baseUrl}categories`);
-  }
-
-  // get category by id
-  getCatByID(catID: number): Observable<ICategory> {
-    return this.httpclient.get<ICategory>(
-      `${environment.baseUrl}categories/${catID}`
     );
   }
 }

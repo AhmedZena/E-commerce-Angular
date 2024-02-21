@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
+  FormArray,
+  FormBuilder,
   FormControl,
   FormGroup,
   ReactiveFormsModule,
@@ -9,6 +11,12 @@ import { IRole } from '../../../Model/IRole';
 import { UsersApiService } from '../../../services/users-api.service';
 import { CommonModule } from '@angular/common';
 
+// navigation
+import { Router } from '@angular/router';
+
+// validation
+import ValidationService from '../../../../util/ValidationService';
+
 @Component({
   selector: 'app-user-reactive-form',
   standalone: true,
@@ -16,60 +24,100 @@ import { CommonModule } from '@angular/common';
   templateUrl: './user-reactive-form.component.html',
   styleUrl: './user-reactive-form.component.scss',
 })
-export class UserReactiveFormComponent {
-  formGroup: FormGroup;
-  roles: IRole[];
-  constructor(private usersApiService: UsersApiService) {
-    this.roles = [
-      { value: 'user', name: 'User' },
-      { value: 'admin', name: 'admin' },
-    ];
-    this.formGroup = new FormGroup({
-      name: new FormControl('', [Validators.required, Validators.minLength(3)]),
-      email: new FormControl('', [
-        Validators.required,
-        Validators.pattern('^[A-Za-z0-9._]{2,}@[A-Za-z0-9]+.[A-Za-z]{2,}$'),
-      ]),
-      password: new FormControl('', [
-        Validators.required,
-        Validators.pattern('^(?=.*d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$'),
-      ]),
-      phone: new FormControl('', [
-        Validators.required,
-        Validators.pattern('(010|011|012|015)[0-9]{8}$'),
-      ]),
-      role: new FormControl(this.roles[0], [Validators.required]),
-      address: new FormControl(''),
+export class UserReactiveFormComponent implements OnInit {
+  regFormGroup!: FormGroup;
+  roles: IRole[] = [
+    { value: 'user', name: 'User' },
+    { value: 'admin', name: 'admin' },
+  ];
+
+  // address: FormArray = this.formBuilder.array([this.newAddress()]);
+
+  constructor(
+    private usersApiService: UsersApiService,
+    private formBuilder: FormBuilder,
+    private router: Router
+  ) {}
+
+  ngOnInit(): void {
+    console.log('hi');
+    this.regFormGroup = this.formBuilder.group({
+      name: ['', [Validators.required, Validators.minLength(3)]],
+      email: ['', [Validators.required, ValidationService.emailValidator]],
+      password: [
+        '',
+        [Validators.required, ValidationService.passwordValidator],
+      ],
+      // phone: ['', [Validators.required, ValidationService.phoneValidator]],
+      phone: this.formBuilder.array([]),
+
+      role: [this.roles[0].value, [Validators.required]],
+      // role: ['user', [Validators.required]],
+      addresses: this.formBuilder.array([]),
     });
-    console.log(this.roles[1].value);
+    this.addAddress();
+    this.addPhone();
   }
 
   get userName() {
-    return this.formGroup.get('name');
+    return this.regFormGroup.get('name');
   }
   get userEmail() {
-    return this.formGroup.get('email');
+    return this.regFormGroup.get('email');
   }
   get userPhone() {
-    return this.formGroup.get('phone');
+    return this.regFormGroup.get('phone') as FormArray;
   }
   get userPassword() {
-    return this.formGroup.get('password');
+    return this.regFormGroup.get('password');
   }
   get userRole() {
-    return this.formGroup.get('role');
+    return this.regFormGroup.get('role');
   }
-  get userAddress() {
-    return this.formGroup.get('address');
+  get userAddresses() {
+    return this.regFormGroup.get('addresses') as FormArray;
+  }
+
+  newAddress(): FormGroup {
+    return this.formBuilder.group({
+      city: ['', [Validators.required]],
+      street: ['', [Validators.required]],
+      zipcode: ['', [Validators.required]],
+    });
+  }
+
+  addAddress() {
+    this.userAddresses.push(this.newAddress());
+  }
+
+  removeAddress(index: number) {
+    this.userAddresses.removeAt(index);
+  }
+
+  newPhone(): FormGroup {
+    return this.formBuilder.group({
+      code: ['', [Validators.required]],
+      number: ['', [Validators.required]],
+    });
+  }
+
+  addPhone() {
+    this.userPhone.push(this.newPhone());
+  }
+
+  removePhone(index: number) {
+    this.userPhone.removeAt(index);
   }
 
   sendUser() {
     console.log('hi');
-    //       this.usersApiService.addNewUser(this.formGroup).subscribe({
-    //  next: (data) => {
-    //       console.log(data);
-    //       // this.router.navigate(['/products']);
-    //     },
-    // }
+    if (this.regFormGroup.valid) {
+      this.usersApiService
+        .addNewUser(this.regFormGroup.value)
+        .subscribe((data) => {
+          console.log(data);
+          this.router.navigate(['/home']);
+        });
+    }
   }
 }

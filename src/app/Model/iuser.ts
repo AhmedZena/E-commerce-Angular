@@ -1,6 +1,6 @@
 export interface IUser {
   id?: number;
-  name: string;
+  name?: string;
   email: string;
   password: string;
   role: 'admin' | 'user';
@@ -13,5 +13,4 @@ export interface IUser {
     zipcode: string;
   };
   website?: string;
-
 }

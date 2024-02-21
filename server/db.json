@@ -12,17 +12,6 @@
       "discount": "no-discount"
     },
     {
-      "id": "2",
-      "name": "computer one",
-      "description": "this is a computer with 16GB RAM and 2TB HDD and 1TB SSD",
-      "quantity": 0,
-      "price": 200,
-      "img": "https://images.unsplash.com/photo-1517518295033-d5ab8ca078cc?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fGRlc2t0b3AlMjBjb21wdXRlcnxlbnwwfHwwfHx8MA%3D%3D",
-      "categoryId": 2,
-      "material": "computers",
-      "discount": "15%"
-    },
-    {
       "id": "10",
       "name": "phone one",
       "description": "this is a phone with 32GB RAM and 4TB HDD and 2TB SSD",
@@ -45,44 +34,11 @@
       "discount": "15%"
     },
     {
-      "id": "19",
-      "name": "computer three",
-      "description": "this is a computer with 128GB RAM and 16TB HDD and 8TB SSD",
-      "quantity": 1,
-      "price": 700,
-      "img": "https://www.cnet.com/a/img/resize/2710def3d920fb2f15e73c8f01b1e49cdc245818/hub/2022/09/28/a54e7f3f-33f8-4822-b49c-0ccd0f227ab4/govee-light-bars.jpg?auto=webp&fit=crop&height=360&width=640",
-      "categoryId": 1,
-      "material": "computers",
-      "discount": "no-discount"
-    },
-    {
       "id": "6",
       "name": "laptop three",
       "description": "this is a computer with 256GB RAM and 32TB HDD and 16TB SSD",
       "quantity": 0,
       "price": 800,
-      "img": "https://www.cnet.com/a/img/resize/01ebf2fb7a844ce940f0b1c3ddc148faddc4a6c1/hub/2022/04/27/b796792b-5b34-4405-83eb-efc66371ee06/samsung-galaxy-book-2-pro-360-01.jpg?auto=webp&fit=crop&height=900&width=1200",
-      "categoryId": 2,
-      "material": "laptops",
-      "discount": "10%"
-    },
-    {
-      "id": "7",
-      "name": "phone four",
-      "description": "this is a phone with 512GB RAM and 64TB HDD and 32TB SSD",
-      "quantity": 10,
-      "price": 900,
-      "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7TB1QkQqX4fqD7PxGmybMDcqHu2DKfCpWUA&usqp=CAU",
-      "categoryId": 3,
-      "material": "phones",
-      "discount": "15%"
-    },
-    {
-      "id": "8",
-      "name": "laptop four",
-      "description": "this is a computer with 1024GB RAM and 128TB HDD and 64TB SSD",
-      "quantity": 0,
-      "price": 1000,
       "img": "https://www.cnet.com/a/img/resize/01ebf2fb7a844ce940f0b1c3ddc148faddc4a6c1/hub/2022/04/27/b796792b-5b34-4405-83eb-efc66371ee06/samsung-galaxy-book-2-pro-360-01.jpg?auto=webp&fit=crop&height=900&width=1200",
       "categoryId": 2,
       "material": "laptops",
@@ -298,6 +254,63 @@
       "phone": "01011752787",
       "address": "cairo",
       "password": "1234567aA"
+    },
+    {
+      "id": "56ec",
+      "name": "Ahmed Gamal Zena",
+      "email": "ahmedzena53@gmail.com",
+      "password": "12345aA2@",
+      "phone": "01011752787",
+      "role": {
+        "value": "user",
+        "name": "User"
+      },
+      "address": "44715"
+    },
+    {
+      "id": "60ec",
+      "name": "Ahmed Gamal Zena",
+      "email": "ahmedzena53@gmail.com",
+      "password": "fsfds54632W@",
+      "phone": "01011752787",
+      "role": "user",
+      "addresses": [
+        {
+          "city": "fdsfds",
+          "street": "fdsfs",
+          "zipcode": "fdsfds"
+        },
+        {
+          "city": "fsdf",
+          "street": "fsdf",
+          "zipcode": "fs"
+        },
+        {
+          "city": "fdsf",
+          "street": "fds",
+          "zipcode": "fsdfsd"
+        }
+      ]
+    },
+    {
+      "id": "9da8",
+      "name": "ahmed",
+      "email": "ahmedzena53@gmail.com",
+      "password": "123aA@",
+      "phone": [
+        {
+          "code": 20,
+          "number": 1011752787
+        }
+      ],
+      "role": "user",
+      "addresses": [
+        {
+          "city": "بلبيس",
+          "street": "44715",
+          "zipcode": "44715"
+        }
+      ]
     }
   ],
   "categories": [
@@ -312,6 +325,20 @@
     {
       "id": "3",
       "name": "Mobiles"
+    }
+  ],
+  "materials": [
+    {
+      "id": "1",
+      "name": "laptops"
+    },
+    {
+      "id": "2",
+      "name": "computers"
+    },
+    {
+      "id": "3",
+      "name": "phones"
     }
   ]
 }
