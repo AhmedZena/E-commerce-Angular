@@ -1,6 +1,4 @@
-<h1 class="text-center
-  font-weight-bold text-info
-">Computers</h1>
+<h1 class="text-center font-weight-bold text-info ">Electronics</h1>
 
 <!-- FILEPATH: /E:/ITI/course/Angular/my-angular/src/app/component/products-parent/products-parent.component.html -->
 <!-- BEGIN: ed8c6549bwf9 -->
@@ -45,7 +43,7 @@
       </th>
       <th>
         <i class="fas fa-money-bill-wave"></i>
-        Old Price
+        Old price
       </th>
       <th>
         <i class="fas fa-dollar-sign"></i>
@@ -53,11 +51,11 @@
       </th>
       <th>
         <i class="fas fa-balance-scale"></i>
-        Price
+        price
       </th>
       <th>
         <i class="fas fa-balance-scale"></i>
-        Total Price
+        Total price
       </th>
 
 
@@ -76,7 +74,7 @@
   Name: 'Laptop one',
   description: 'this is a computer with 8GB RAM and 1TB HDD',
   Quantity: 1,
-  Price: 100,
+  price: 100,
   Img: 'https://i.pcmag.com/imagery/reviews/01DwPnq2ew5930qO5p4LXWH-1..v1677608790.jpg',
   CategoryId: 1,
   Material: 'laptops',
@@ -93,10 +91,10 @@
     <tr>
       <td>
         <div class="d-flex align-items-center">
-          <img [src]='product.Img' alt="" style="width: 45px; height: 45px" class="rounded-circle" />
+          <img [src]='product.img' alt="" style="width: 45px; height: 45px" class="rounded-circle" />
           <div class="ms-3">
-            <p class="fw-bold mb-1">{{product.Name}}</p>
-            <p class="text-muted mb-0">{{product.Material}}</p>
+            <p class="fw-bold mb-1">{{product.name}}</p>
+            <p class="text-muted mb-0">{{product.material}}</p>
           </div>
         </div>
       </td>
@@ -104,39 +102,39 @@
         {{product.numOnCart}}
       </td>
       <td>
-        {{product.Price}}
+        {{product.price}}
       </td>
       <!-- <td>
         {{product.Discount}} %
       </td>
 
       <td>
-        {{product.Price | calcDiscount: +product.Discount| currency:'USD'}}
+        {{product.price | calcDiscount: +product.Discount| currency:'USD'}}
       </td>
 
       <td>
-        {{product.Price * product.numOnCart | calcDiscount: +product.Discount| currency:'USD'}}
+        {{product.price * product.numOnCart | calcDiscount: +product.Discount| currency:'USD'}}
       </td> -->
 
       @if (product.Discount !== "No Discount") {
       <td>
-        {{product.Discount}} %
+        {{product.discount}}
       </td>
       <td>
-        {{product.Price | calcDiscount: +product.Discount| currency:'USD'}}
+        {{product.price | calcDiscount: +product.discount| currency:'USD'}}
       </td>
       <td>
-        {{product.Price * product.numOnCart | calcDiscount: +product.Discount| currency:'USD'}}
+        {{product.price * product.numOnCart | calcDiscount: +product.discount| currency:'USD'}}
       </td>
       } @else {
       <td>
-        {{product.Discount}}
+        {{product.discount}}
       </td>
       <td>
-        {{product.Price | currency:'USD'}}
+        {{product.price | currency:'USD'}}
       </td>
       <td>
-        {{product.Price * product.numOnCart | currency:'USD'}}
+        {{product.price * product.numOnCart | currency:'USD'}}
       </td>
       }
 
@@ -155,7 +153,7 @@
   </tbody>
 </table>
 <p>
-  <!-- Total Price: {{calcTotal() | currency:'USD'}} -->
+  <!-- Total price: {{calcTotal() | currency:'USD'}} -->
 </p>
 } @else {
 <h3 class="text-center">

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { UsersApiService } from '../../../../services/users-api.service';
-import { IUser } from '../../../../Model/IUser';
+import IUser from '../../../../Model/IUser';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { JsonPipe } from '@angular/common';

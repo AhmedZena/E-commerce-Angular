@@ -6,7 +6,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { IUser } from '../../../Model/IUser';
+import IUser from '../../../Model/IUser';
 import { UserAuthService } from '../../../services/user-auth.service';
 import ValidationService from '../../../../util/ValidationService';
 
